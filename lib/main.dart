@@ -50,8 +50,10 @@ class _OsVersionState extends State<OsVersion> {
         child: Text("Load data"),
         onPressed: () async {
           var url =
-              'http://dl.google.com/android/studio/metadata/distributions.json';
-          var response = await http.get(url);
+              'https://cors-anywhere.herokuapp.com/http://dl.google.com/android/studio/metadata/distributions.json';
+          Map<String, String> headers = Map();
+          headers['X-Requested-With'] = 'XMLHttpRequest';
+          var response = await http.get(url, headers: headers);
           if (response.statusCode == 200) {
             var json = convert.jsonDecode(response.body);
             setState(() {
